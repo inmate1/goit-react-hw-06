@@ -11,19 +11,19 @@ import { loadContacts } from './redux/contactsSlice';
 function App() {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items);
-console.log(contacts);
+  console.log(contacts);
+  const savedContacts = JSON.parse(localStorage.getItem('contacts'));
+  console.log(savedContacts);
+ useEffect(() => {
+  //  const savedContacts = JSON.parse(localStorage.getItem('contacts'));
 
-  useEffect(() => {
-    const savedContacts = JSON.parse(localStorage.getItem('contacts'));
-    console.log(savedContacts);
-    
-    if (savedContacts.length !== 0) {
-      dispatch(loadContacts(savedContacts));
-    } else {
-      dispatch(loadContacts(userData));
-      // localStorage.setItem('contacts', JSON.stringify(userData));
-    }
-  }, [dispatch]);
+   if (savedContacts && savedContacts.length > 0) {
+     dispatch(loadContacts(savedContacts));
+   } else {
+     dispatch(loadContacts(userData));
+     localStorage.setItem('contacts', JSON.stringify(userData));
+   }
+ }, [dispatch]);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
