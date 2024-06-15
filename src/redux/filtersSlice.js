@@ -6,10 +6,15 @@
 // Из файла слайса экспортируй редюсер, а также его экшены и селекторы.
 // Экшены
 
-export const changeFilter = searchName => ({
-  type: 'search/name',
-  payload: searchName,
-});
+import { createAction } from "@reduxjs/toolkit";
+
+// export const changeFilter = searchName => ({
+//   type: 'search/name',
+//   payload: searchName,
+// });
+//Функция  createAction(type)  упрощает процесс объявления экшенов. В качестве аргумента она принимает строку описывающую тип действия и возвращает генератор экшена.
+export const changeFilter = createAction('search/name');
+
 
 
 export const filterReducer = (state = { name: '' }, action) => {
@@ -17,7 +22,7 @@ export const filterReducer = (state = { name: '' }, action) => {
   switch (action.type) {
     // В зависимости от типа экшена будет выполняться разная логика
 
-    case 'search/name':
+    case changeFilter.type: //В редюсере импортируем экшены и используем их свойство  type для замены строк внутри инструкции  switch.
       return {
         ...state,
 

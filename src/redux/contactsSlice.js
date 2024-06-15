@@ -5,33 +5,35 @@
 // Объявление функции-селекторы для использования в useSelector :
 // selectContacts- возвращает список контактов из свойства items.
 // Из файла слайса экспортируй редюсер, а также его экшены и селекторы.
-import userData from '../userData.json';
-export const addContact = value => {
-  console.log(value);
-  return {
-    type: 'contacts/add',
-    payload: value,
-  };
-};
 
-export const deleteContact = contactId => {
-  console.log(contactId);
-  return { type: 'contacts/delete', payload: contactId };
-};
+import { createAction } from "@reduxjs/toolkit";
 
-export const loadContacts = contacts => {
-  return {
-    type: 'contacts/load',
-    payload: contacts,
-  };
-};
+// export const addContact = value => ({
+//   type: 'contacts/add',
+//   payload: value,
+// });
+//Функция  createAction(type)  упрощает процесс объявления экшенов. В качестве аргумента она принимает строку описывающую тип действия и возвращает генератор экшена.
+export const addContact = createAction('contacts/add'); 
 
+// export const deleteContact = contactId =>({
+//     type: 'contacts/delete',
+//     payload: contactId ,
+// });
+export const deleteContact = createAction('contacts/delete');
 
-export const contactsReducer = (state = { items: []}, action) => {
+// export const loadContacts = contacts => {
+//   return {
+//     type: 'contacts/load',
+//     payload: contacts,
+//   };
+// };
+export const loadContacts = createAction('contacts/load');
+
+export const contactsReducer = (state = { items: [] }, action) => {
   // Редюсер различает экшены по значению свойства type
   switch (action.type) {
     // В зависимости от типа экшена будет выполняться разная логика
-    case 'contacts/add':
+    case addContact.type: //В редюсере импортируем экшены и используем их свойство  type для замены строк внутри инструкции  switch.
       // Требуется вернуть новый объект состояния
       return {
         // в котором есть все данные существующего состояния
@@ -44,7 +46,7 @@ export const contactsReducer = (state = { items: []}, action) => {
         items: [...state.items, action.payload],
       };
     //////////////////////////////////
-    case 'contacts/delete':
+    case deleteContact.type: //В редюсере импортируем экшены и используем их свойство  type для замены строк внутри инструкции  switch.
       return {
         ...state,
 
@@ -53,7 +55,7 @@ export const contactsReducer = (state = { items: []}, action) => {
         // и о новой задачи
         items: state.items.filter(item => item.id !== action.payload),
       };
-    case 'contacts/load':
+    case loadContacts.type:
       return {
         ...state,
         items: action.payload,
