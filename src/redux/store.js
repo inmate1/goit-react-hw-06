@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { contactsReducer, initializeContacts } from './contactsSlice';
 import { changeFilterReducer } from './filtersSlice';
@@ -14,9 +13,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import userData from '../userData.json';
-// import { useDispatch } from 'react-redux';
-// const dispatch = useDispatch();
-///////////////////////////////
 
 const persistConfig = {
   key: 'contacts',
@@ -42,8 +38,6 @@ const store = configureStore({
 });
 
 const persistor = persistStore(store);
-// Инициализируем состояние контактами из userData, если localStorage пуст
-// Подписываемся на событие REHYDRATE для правильной инициализации
 persistor.subscribe(() => {
   const state = store.getState();
   if (!state.contacts.items.length) {

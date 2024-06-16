@@ -6,20 +6,11 @@ import { IconContext } from 'react-icons';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contactsSlice';
 
-
-
-
 const Contact = ({ id, name, number }) => {
-  // Для того чтобы известить страницу о том, что в интерфейсе произошло какое-либо событие, необходимо отправить экшен. Для этого в библиотеке React Redux есть хук  useDispatch() , который возвращает ссылку на функцию отправки экшенов  dispatch  с объекта, созданного нами ранее, стором Redux.
-  // Получаем ссылку на функцию отправки экшенов
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  
   const handleDeleteContact = contactId => {
-    console.log(contactId);
-    // Вызываем генератор экшена
-    // и передаем текст задания для поля payload
-    // Отправляем результат – экшен для создания задачи
-    // Импортируем deleteContact
     dispatch(deleteContact(contactId));
   };
   return (
@@ -51,7 +42,7 @@ const Contact = ({ id, name, number }) => {
 };
 
 Contact.propTypes = {
-   id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
 };

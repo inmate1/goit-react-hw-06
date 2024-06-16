@@ -1,16 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const initialState = {
-  items: [], // Предположим, что userData определен и содержит начальный массив контактов
+  items: [],
 };
-
-console.log(initialState.items);
-
 
 const changeContacts = createSlice({
   name: 'contacts',
-  initialState: initialState,
+  initialState,
   reducers: {
     initializeContacts: (state, action) => {
       if (state.items.length === 0) {
@@ -29,5 +25,6 @@ const changeContacts = createSlice({
   },
 });
 
-export const { initializeContacts, addContact, deleteContact } = changeContacts.actions;
+export const { initializeContacts, addContact, deleteContact } =
+  changeContacts.actions;
 export const contactsReducer = changeContacts.reducer;

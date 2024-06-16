@@ -1,11 +1,11 @@
 import { Formik, Form, Field } from 'formik';
 import { useId } from 'react';
 import * as Yup from 'yup';
-import PropTypes from 'prop-types';
+
 
 
 import css from './ContactForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
 
 
@@ -37,17 +37,12 @@ const initialValues = {
 const ContactForm = () => {
   const nameFieldId = useId();
   const phoneFieldId = useId();
-  // Чтобы извлечь данные из store, компоненты должны подписаться на необходимые им части состояния Redux. Для этого в библиотеке React Redux есть хук  useSelector(selector) Аргументом он принимает функцию, которая объявляет один параметр  state  – весь объект состояния Redux, который будет автоматически передан функции хуком  useSelector . Эта функция называется селектором и должна вернуть только ту часть состояния, которая необходима компоненту.
+  
 
-
-  const contacts = useSelector(state => state.contacts.items);
-  // console.log(contacts);
-  // Для того чтобы известить страницу о том, что в интерфейсе произошло какое-либо событие, необходимо отправить экшен. Для этого в библиотеке React Redux есть хук  useDispatch() , который возвращает ссылку на функцию отправки экшенов  dispatch  с объекта, созданного нами ранее, стором Redux.
-  // Получаем ссылку на функцию отправки экшенов
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    const contactItemId = Date.now().toString(); // Преобразование id в строку;
+    const contactItemId = Date.now().toString(); 
 
     dispatch(
       addContact({
@@ -122,7 +117,4 @@ const ContactForm = () => {
   );
 };
 
-// ContactForm.propTypes = {
-//   onAdd: PropTypes.func.isRequired,
-// };
 export default ContactForm;
