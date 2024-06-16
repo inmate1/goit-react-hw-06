@@ -5,30 +5,14 @@ import './App.css';
 import ContactList from './components/ContactList/ContactList';
 import SearchBox from './components/SearchBox/SearchBox';
 import ContactForm from './components/ContactForm/ContactForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadContacts } from './redux/contactsSlice';
+import { Provider } from 'react-redux';
+
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './redux/store';
+
+
 
 function App() {
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
-  console.log(contacts);
-  const savedContacts = JSON.parse(localStorage.getItem('contacts'));
-  console.log(savedContacts);
- useEffect(() => {
-  //  const savedContacts = JSON.parse(localStorage.getItem('contacts'));
-
-   if (savedContacts && savedContacts.length > 0) {
-     dispatch(loadContacts(savedContacts));
-   } else {
-     dispatch(loadContacts(userData));
-     localStorage.setItem('contacts', JSON.stringify(userData));
-   }
- }, [dispatch]);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-  ////////////////////////////////////////////////////////////
   // const getInitialContacts = () => {
   //   const initialContacts = JSON.parse(localStorage.getItem('contactElements'));
 
@@ -52,19 +36,18 @@ function App() {
   //     return [...prevContacts, newContactItem];
   //   });
   // };
-  // const deleteContact = contactId => {
-  //   setContacts(prevContacts => {
-  //     return prevContacts.filter(prevContact => prevContact.id !== contactId);
-  //   });
-  // };
 
   return (
-    <div className='wrapper'>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <div className='wrapper'>
+          <h1>Phonebook</h1>
+          <ContactForm />
+          <SearchBox />
+          <ContactList />
+        </div>
+      </PersistGate>
+    </Provider>
   );
 }
 

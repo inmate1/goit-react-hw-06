@@ -1,7 +1,7 @@
 import css from './SearchBox.module.css';
 import { useId } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeFilter } from '../../redux/filtersSlice';
+import { selectNameFilter } from '../../redux/filtersSlice';
 
 const SearchBox = () => {
   const inputId = useId();
@@ -14,8 +14,8 @@ const SearchBox = () => {
   // Отправляем результат – экшен для создания задачи
   const dispatch = useDispatch();
 
-  const searchContact = value => {
-    dispatch(changeFilter(value));
+  const selectName = value => {
+    dispatch(selectNameFilter(value));
     //   contacts.filter(contact =>
     //   contact.name.toLowerCase(contact.name).includes(findValue.toLowerCase())
     // );
@@ -29,7 +29,7 @@ const SearchBox = () => {
         name='input'
         id={inputId}
         value={name}
-        onChange={evt => searchContact(evt.target.value)}
+        onChange={evt => selectName(evt.target.value)}
       />
     </div>
   );

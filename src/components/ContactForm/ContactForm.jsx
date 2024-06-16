@@ -48,9 +48,7 @@ const ContactForm = () => {
 
   const handleSubmit = (values, actions) => {
     const contactItemId = Date.now().toString(); // Преобразование id в строку;
-    // Вызываем генератор экшена
-    // и передаем текст задания для поля payload
-    // Отправляем результат – экшен для создания задачи
+
     dispatch(
       addContact({
         id: contactItemId,
@@ -58,19 +56,12 @@ const ContactForm = () => {
         number: values.number,
       })
     );
-
-    // onAdd({
-    //   id: contactItemId,
-    //   name: values.name,
-    //   number: values.number,
-    // });
     actions.resetForm();
   };
 
   return (
     <div>
       <hr />
-      {/* items: {JSON.stringify(contacts)} визуально посмотреть */}
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
